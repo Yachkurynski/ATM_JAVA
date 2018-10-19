@@ -10,6 +10,7 @@ public class Commit extends ComparableGithubEntity {
     this.author = author;
   }
 
+  @SuppressWarnings("unused")
   public Author getAuthor() {
     return author;
   }

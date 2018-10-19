@@ -14,6 +14,7 @@ public class Author {
     return name;
   }
 
+  @SuppressWarnings("unused")
   public String getEmail() {
     return email;
   }

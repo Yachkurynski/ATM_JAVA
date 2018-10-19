@@ -16,6 +16,7 @@ public class Comment extends ComparableGithubEntity {
     return text;
   }
 
+  @SuppressWarnings("unused")
   public Author getAuthor() {
     return author;
   }

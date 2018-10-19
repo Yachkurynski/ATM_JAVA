@@ -1,5 +1,6 @@
 package com.epam.atm.core.github_entities;
 
+import com.epam.atm.core.utils.annotations.UseTreeOnly;
 import java.util.Date;
 import java.util.Set;
 import java.util.TreeSet;
@@ -11,7 +12,9 @@ public class PullRequest extends ComparableGithubEntity {
       "%s wants to merge %d commits into %s from %s; [%s]";
 
   private Author author;
+  @UseTreeOnly
   private TreeSet<Commit> commits;
+  @UseTreeOnly
   private TreeSet<Comment> comments;
   private Date date;
   private String branchFrom;
@@ -22,6 +25,7 @@ public class PullRequest extends ComparableGithubEntity {
     comments = new TreeSet<>();
   }
 
+  @SuppressWarnings("unused")
   public Author getAuthor() {
     return author;
   }
@@ -30,6 +34,7 @@ public class PullRequest extends ComparableGithubEntity {
     return commits;
   }
 
+  @SuppressWarnings("unused")
   public Set<Comment> getComments() {
     return comments;
   }
@@ -38,10 +43,12 @@ public class PullRequest extends ComparableGithubEntity {
     return date;
   }
 
+  @SuppressWarnings("unused")
   public String getBranchFrom() {
     return branchFrom;
   }
 
+  @SuppressWarnings("unused")
   public String getBranchTo() {
     return branchTo;
   }
