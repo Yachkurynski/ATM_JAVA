@@ -2,10 +2,12 @@ package com.epam.atm.core.github_entities;
 
 import com.epam.atm.core.github_entities.interfaces.WithDateTime;
 import java.util.Date;
+import lombok.Getter;
 
 public class ComparableGithubEntity implements WithDateTime, Comparable<ComparableGithubEntity> {
 
-  protected long dateTime;
+  private long dateTime;
+  @Getter
   protected long creationTime;
 
   public ComparableGithubEntity() {
@@ -16,10 +18,6 @@ public class ComparableGithubEntity implements WithDateTime, Comparable<Comparab
   @Override
   public Date getDate() {
     return new Date(dateTime);
-  }
-
-  public long getCreationTime() {
-    return creationTime;
   }
 
   @Override

@@ -6,7 +6,6 @@ import com.epam.atm.core.github_entities.Comment;
 import com.epam.atm.core.github_entities.Commit;
 import com.epam.atm.core.github_entities.PullRequest;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
@@ -47,18 +46,12 @@ public class CheckPullRequestRunner {
         .withBranchTo("master").withCommits(commit1, commit2, commit3)
         .withComments().build();
 
-    Set<PullRequest> requests = new TreeSet<>();
-
-    requests.addAll(getList(pullRequest1, pullRequest2, pullRequest3, pullRequest4, pullRequest5));
+    Set<PullRequest> requests = new TreeSet<>(
+        Arrays.asList(pullRequest1, pullRequest2, pullRequest3, pullRequest4, pullRequest5));
 
     Set<PullRequest> checked = requests.stream().filter(PullRequest::isChecked)
         .collect(Collectors.toSet());
 
     System.out.println(checked);
-  }
-
-  @SafeVarargs
-  private static <T> List<T> getList(T...objects) {
-    return Arrays.asList(objects);
   }
 }
