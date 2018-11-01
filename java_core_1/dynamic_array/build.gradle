@@ -1,0 +1,15 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+
+group 'epam_atm_java'
+version '1.0'
+
+sourceCompatibility = JavaVersion.VERSION_1_9
+targetCompatibility = JavaVersion.VERSION_1_9
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+}
