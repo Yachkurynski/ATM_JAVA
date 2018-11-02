@@ -1,18 +1,15 @@
 package com.epam.atm.core.github_entities;
 
 import java.util.Objects;
+import lombok.Getter;
 
 public class Commit extends ComparableGithubEntity {
 
+  @Getter
   private Author author;
 
   public Commit(Author author) {
     this.author = author;
-  }
-
-  @SuppressWarnings("unused")
-  public Author getAuthor() {
-    return author;
   }
 
   @Override
@@ -24,7 +21,7 @@ public class Commit extends ComparableGithubEntity {
       return false;
     }
     Commit commit = (Commit) o;
-    return Objects.equals(author, commit.author) && Objects.equals(creationTime, commit.creationTime);
+    return Objects.equals(author, commit.getAuthor()) && Objects.equals(creationTime, commit.getCreationTime());
   }
 
   @Override

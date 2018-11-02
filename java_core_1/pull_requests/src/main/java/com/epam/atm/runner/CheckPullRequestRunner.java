@@ -11,7 +11,6 @@ import com.epam.atm.core.github_entities.PullRequest;
 import com.epam.atm.core.utils.MetadataPrinter;
 import com.epam.atm.core.utils.builder.PullRequestBuilder;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
@@ -53,7 +52,7 @@ public class CheckPullRequestRunner {
         .withComments().build();
 
     Set<PullRequest> requests = new TreeSet<>(
-        getList(pullRequest1, pullRequest2, pullRequest3, pullRequest4, pullRequest5));
+        Arrays.asList(pullRequest1, pullRequest2, pullRequest3, pullRequest4, pullRequest5));
 
     Set<PullRequest> checked = requests.stream().filter(PullRequest::isChecked)
         .collect(Collectors.toSet());
@@ -66,11 +65,4 @@ public class CheckPullRequestRunner {
     MetadataPrinter.print(PullRequest.class);
 
   }
-
-  @SafeVarargs
-  private static <T> List<T> getList(T...objects) {
-    return Arrays.asList(objects);
-  }
-
-
 }
