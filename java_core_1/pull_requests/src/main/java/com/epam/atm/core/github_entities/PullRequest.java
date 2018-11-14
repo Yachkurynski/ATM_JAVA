@@ -1,5 +1,6 @@
 package com.epam.atm.core.github_entities;
 
+import com.epam.atm.core.utils.annotations.UseTreeOnly;
 import java.util.Date;
 import java.util.Set;
 import java.util.TreeSet;
@@ -15,7 +16,9 @@ public class PullRequest extends ComparableGithubEntity {
   @Setter
   private Author author;
   @Getter
+  @UseTreeOnly
   private TreeSet<Commit> commits;
+  @UseTreeOnly
   private TreeSet<Comment> comments;
   @Setter
   private Date date;
