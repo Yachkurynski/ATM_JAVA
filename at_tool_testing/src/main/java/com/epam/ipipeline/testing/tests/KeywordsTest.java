@@ -17,18 +17,18 @@ public class KeywordsTest extends ToolTest {
 
   @Test
   public void addTestObject() {
-    keywordsSteps.addTestObject(new TestObject("z-checkbox", TestObjectsType.Version));
-    keywordsSteps.hasTestObject("z-checkbox");
+//    keywordsSteps.addTestObject(new TestObject("z-checkbox", TestObjectsType.Version));
+//    keywordsSteps.hasTestObject("z-checkbox");
   }
 
   @Test
   public void hasTestObject() {
-    keywordsSteps.hasTestObject("Preview");
+//    keywordsSteps.hasTestObject("Preview");
   }
 
   @Test
   public void objectHasActions() {
-    keywordsSteps.openTestObject("Report");
-    keywordsSteps.hasActions("[ logCase ]");
+//    keywordsSteps.openTestObject("Report");
+//    keywordsSteps.hasActions("[ logCase ]");
   }
 }
