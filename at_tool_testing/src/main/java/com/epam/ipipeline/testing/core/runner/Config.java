@@ -9,4 +9,8 @@ public class Config {
   @Option(name = "-url")
   private String url;
 
+  @Getter
+  @Option(name = "-suite")
+  private String suiteNumber;
+
 }

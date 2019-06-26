@@ -1,8 +1,9 @@
-package com.epam.ipipeline.testing.tests;
+package com.epam.ipipeline.testing.tests.suite1;
 
 import com.epam.ipipeline.testing.model.beans.TestObject;
 import com.epam.ipipeline.testing.model.enums.TestObjectsType;
 import com.epam.ipipeline.testing.steps.KeywordsSteps;
+import com.epam.ipipeline.testing.tests.ToolTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -23,7 +24,7 @@ public class KeywordsTest extends ToolTest {
 
   @Test
   public void hasTestObject() {
-//    keywordsSteps.hasTestObject("Preview");
+    keywordsSteps.hasTestObject("Preview");
   }
 
   @Test

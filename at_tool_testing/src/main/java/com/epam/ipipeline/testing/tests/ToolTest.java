@@ -2,6 +2,7 @@ package com.epam.ipipeline.testing.tests;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
+import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
@@ -18,4 +19,7 @@ public abstract class ToolTest {
     WebDriverRunner.closeWebDriver();
   }
 
+  public WebDriver getDriver() {
+    return WebDriverRunner.getWebDriver();
+  }
 }
