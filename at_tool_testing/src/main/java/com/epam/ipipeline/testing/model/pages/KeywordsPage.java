@@ -40,15 +40,17 @@ public class KeywordsPage extends Page {
     namesToObjects.get(name).click();
   }
 
-  public boolean isTestObjectPresent(String name) {
+  /*public boolean isTestObjectPresent(String name) {
     return !testObjects.stream()
         .map(o->getObjectName(o.getText()))
         .filter(obj->obj.equals(name))
         .collect(Collectors.toList()).isEmpty();
-  }
+  }*/
 
-  public List<ObjectAction> getActions() {
-    return objectActionsForm.getActions();
+  public List<String> getTestObjectsNames() {
+    return testObjects.stream()
+        .map(o->getObjectName(o.getText()))
+        .collect(Collectors.toList());
   }
 
   public List<String> getActionsNames() {

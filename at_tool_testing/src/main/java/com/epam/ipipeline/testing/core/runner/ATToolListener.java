@@ -1,6 +1,6 @@
 package com.epam.ipipeline.testing.core.runner;
 
-import com.epam.ipipeline.testing.tests.ToolTest;
+import com.epam.ipipeline.testing.test.model.ToolTest;
 import java.io.File;
 import java.io.IOException;
 import org.apache.commons.io.FileUtils;

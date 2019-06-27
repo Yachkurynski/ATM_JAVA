@@ -10,7 +10,7 @@ import org.testng.TestNG;
 
 public class ToolTestRunner {
 
-  private static final String SUITE_PATH = "com.epam.ipipeline.testing.tests.suite";
+  private static final String SUITE_PATH = "com.epam.ipipeline.testing.test.suite";
 
   public static void main(String[] args) {
     Config config = new Config();
