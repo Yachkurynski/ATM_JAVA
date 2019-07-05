@@ -1,6 +1,8 @@
 package com.epam.ipipeline.testing.core.runner;
 
-import com.epam.ipipeline.testing.test.model.ToolTest;
+import com.epam.ipipeline.testing.test.model.SimpleTest;
+import com.epam.reportportal.message.ReportPortalMessage;
+import com.epam.reportportal.testng.ReportPortalTestNGListener;
 import java.io.File;
 import java.io.IOException;
 import org.apache.commons.io.FileUtils;
@@ -9,11 +11,10 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
-import org.testng.TestListenerAdapter;
 
-public class ATToolListener extends TestListenerAdapter {
+public class TestListener extends ReportPortalTestNGListener {
 
-  private static Logger LOGGER = Logger.getLogger(ATToolListener.class);
+  private static Logger LOGGER = Logger.getLogger(TestListener.class);
 
   @Override
   public void onTestStart(ITestResult iTestResult) {
@@ -36,7 +37,7 @@ public class ATToolListener extends TestListenerAdapter {
   }
 
   private void saveScreenShoot(ITestResult result) {
-    WebDriver driver = ((ToolTest)result.getInstance()).getDriver();
+    WebDriver driver = ((SimpleTest)result.getInstance()).getDriver();
     File screenShot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 
     try {
@@ -44,6 +45,11 @@ public class ATToolListener extends TestListenerAdapter {
       FileUtils.moveFile(screenShot, destScreenshotFile);
 
       LOGGER.info("Screen shoot of error: " + destScreenshotFile.getPath());
+
+      ReportPortalMessage message = new ReportPortalMessage(destScreenshotFile, "Screenshot: ");
+      LOGGER.info(message);
+
+
     } catch (IOException e) {
       throw new RuntimeException(e);
     } finally {

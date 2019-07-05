@@ -1,9 +1,9 @@
 package com.epam.ipipeline.testing.test.model;
 
 import com.codeborne.selenide.Selenide;
-import com.epam.ipipeline.testing.core.injections.ATToolModule;
-import com.epam.ipipeline.testing.core.services.PageFactory;
-import com.epam.ipipeline.testing.core.services.WebDriverService;
+import com.epam.ipipeline.testing.core.injections.TestModule;
+import com.epam.ipipeline.testing.model.pages.PageFactory;
+import com.epam.ipipeline.testing.model.utils.WebDriverService;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
@@ -11,18 +11,16 @@ import java.lang.reflect.Type;
 import java.util.List;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Guice;
 
-@Guice(modules = ATToolModule.class)
-public abstract class ToolTest {
+@Guice(modules = TestModule.class)
+public abstract class SimpleTest {
 
   @Inject private PageFactory factory;
   @Inject private WebDriverService service;
 
-  @BeforeSuite
-  public void prepareProduct() {
-    Selenide.open("http://10.6.220.15:8090/tool-0.1/");
+  protected void open(String url) {
+    Selenide.open(url);
     getDriver().manage().window().maximize();
   }
 
@@ -35,7 +33,7 @@ public abstract class ToolTest {
     return service.getDriver();
   }
 
-  public PageFactory factory() {
+  public PageFactory pages() {
     return factory;
   }
 

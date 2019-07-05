@@ -1,16 +1,16 @@
 package com.epam.ipipeline.testing.core.runner;
 
-
-import com.epam.ipipeline.testing.core.injections.ATToolModule;
-import com.epam.ipipeline.testing.core.services.CmdLineParser;
-import com.google.common.reflect.ClassPath;
-import com.google.common.reflect.ClassPath.ClassInfo;
-import java.io.IOException;
+import com.epam.ipipeline.testing.core.parsers.CmdLineParser;
+import com.epam.ipipeline.testing.core.parsers.TestExcelParser;
+import com.epam.ipipeline.testing.model.beans.SingleTest;
+import java.io.File;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 import org.testng.TestNG;
 
 public class ToolTestRunner {
-
-  private static final String SUITE_PATH = "com.epam.ipipeline.testing.test.suites.suite";
 
   public static void main(String[] args) {
     Config config = new Config();
@@ -18,19 +18,33 @@ public class ToolTestRunner {
 
     TestNGBuilder builder = new TestNGBuilder();
 
-    builder.withListener(new ATToolListener());
-    builder.withParentModule(ATToolModule.class);
+    builder.withListener(new TestListener());
 
-    try {
-      ClassPath
-          .from(ClassLoader.getSystemClassLoader()).getTopLevelClasses(SUITE_PATH + config.getSuiteNumber())
-          .stream().map(ClassInfo::load).forEach(builder::withTestClasses);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
+    Map<String, SingleTest> testFlow = new LinkedHashMap<>();
+
+    File source = new File(config.getExcel());
+
+    AtomicInteger fileCounter = new AtomicInteger(1);
+    if(source.isDirectory()) {
+      Arrays.asList(source.listFiles()).forEach(f->fillTestFlow(f, fileCounter.getAndIncrement(), testFlow));
+    } else {
+      fillTestFlow(source, fileCounter.getAndIncrement(), testFlow);
     }
 
-    TestNG testng = builder.build();
+    testFlow.forEach((testName, test)->{
+      builder.withTestClass(testName, test.getTestClass());
+      builder.withTestMethod(testName, test.getTestMethod(), test.getParameters());
+    });
 
-    testng.run();
+    TestNG testNG = builder.build();
+
+    testNG.run();
+  }
+
+  private static void fillTestFlow(File source, int fileCounter, Map<String, SingleTest> testFlow) {
+    AtomicInteger counter = new AtomicInteger(1);
+
+    new TestExcelParser(source).get()
+        .forEach(test->testFlow.put(String.format("%d.%d [%s] %s", fileCounter, counter.getAndIncrement(), source.getName(), test.toString()), test));
   }
 }

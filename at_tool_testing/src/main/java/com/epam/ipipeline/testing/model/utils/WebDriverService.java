@@ -1,8 +1,6 @@
-package com.epam.ipipeline.testing.core.services;
+package com.epam.ipipeline.testing.model.utils;
 
 import com.codeborne.selenide.WebDriverRunner;
-import com.google.inject.Singleton;
-import lombok.NoArgsConstructor;
 import org.openqa.selenium.WebDriver;
 
 public class WebDriverService {
@@ -12,8 +10,8 @@ public class WebDriverService {
   }
 
   public  void closeWebDriver() {
-    WebDriverRunner.closeWebDriver();
+    if (WebDriverRunner.hasWebDriverStarted()) {
+      WebDriverRunner.closeWebDriver();
+    }
   }
-
-
 }

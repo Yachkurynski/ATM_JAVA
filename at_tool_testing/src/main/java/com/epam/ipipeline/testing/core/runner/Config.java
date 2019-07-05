@@ -6,11 +6,7 @@ import org.kohsuke.args4j.Option;
 public class Config {
 
   @Getter
-  @Option(name = "-url")
-  private String url;
-
-  @Getter
-  @Option(name = "-suite")
-  private String suiteNumber;
+  @Option(name = "-excel")
+  private String excel;
 
 }

@@ -1,4 +1,4 @@
-package com.epam.ipipeline.testing.core.services;
+package com.epam.ipipeline.testing.core.parsers;
 
 import org.kohsuke.args4j.CmdLineException;
 
