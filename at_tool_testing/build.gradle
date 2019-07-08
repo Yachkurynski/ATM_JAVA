@@ -34,5 +34,5 @@ shadowJar {
     baseName = 'gugol'
     classifier = ''
     version = '1.0'
-    destinationDir = file('/exec/')
+    destinationDir = file('/')
 }
