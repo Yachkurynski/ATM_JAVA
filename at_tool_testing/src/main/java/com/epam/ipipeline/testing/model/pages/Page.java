@@ -6,11 +6,10 @@ import com.google.inject.Inject;
 import lombok.Getter;
 import ru.yandex.qatools.htmlelements.loader.HtmlElementLoader;
 
+@Getter
 public abstract class Page {
 
-  @Getter
   @Inject private WebDriverService service;
-  @Getter
   @Inject private Browser browser;
 
   public void initialize() {

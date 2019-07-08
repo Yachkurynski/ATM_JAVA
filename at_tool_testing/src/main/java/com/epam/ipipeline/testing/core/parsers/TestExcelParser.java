@@ -57,13 +57,10 @@ public class TestExcelParser {
   }
 
   private SingleTest createSingleTest(Row row) {
-    SingleTest singleTest = new SingleTest();
-
-    singleTest.setTestClass(getTestClass(getCellValue(row, ColumnNames.Object)));
-    singleTest.setTestMethod(getCellValue(row, ColumnNames.Action));
-    singleTest.setParameters(getParams(row));
-
-    return singleTest;
+    return SingleTest.builder()
+        .testClass(getTestClass(getCellValue(row, ColumnNames.Object)))
+        .testMethod(getCellValue(row, ColumnNames.Action))
+        .parameters(getParams(row)).build();
   }
 
   private Class<?> getTestClass(String className) {

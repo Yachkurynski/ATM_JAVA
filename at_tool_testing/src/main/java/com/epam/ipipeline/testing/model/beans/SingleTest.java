@@ -1,21 +1,16 @@
 package com.epam.ipipeline.testing.model.beans;
 
 import java.util.Map;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
+@Getter
+@Builder
 public class SingleTest {
 
-  @Getter
-  @Setter
   private Class<?> testClass;
-  @Getter
-  @Setter
   private String testMethod;
-  @Getter
-  @Setter
   private Map<String, String> parameters;
-
 
   @Override
   public String toString() {

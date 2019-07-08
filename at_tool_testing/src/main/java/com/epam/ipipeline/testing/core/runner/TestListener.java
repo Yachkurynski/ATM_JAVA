@@ -5,16 +5,15 @@ import com.epam.reportportal.message.ReportPortalMessage;
 import com.epam.reportportal.testng.ReportPortalTestNGListener;
 import java.io.File;
 import java.io.IOException;
+import lombok.extern.log4j.Log4j;
 import org.apache.commons.io.FileUtils;
-import org.apache.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
 
+@Log4j
 public class TestListener extends ReportPortalTestNGListener {
-
-  private static Logger LOGGER = Logger.getLogger(TestListener.class);
 
   @Override
   public void onTestStart(ITestResult iTestResult) {
@@ -23,7 +22,7 @@ public class TestListener extends ReportPortalTestNGListener {
     String testClass = iTestResult.getTestClass().getRealClass().getSimpleName();
     String test = iTestResult.getMethod().getMethodName();
 
-    LOGGER.info(String.format("%s | %s", testClass, test));
+    log.info(String.format("%s | %s", testClass, test));
   }
 
   @Override
@@ -31,7 +30,7 @@ public class TestListener extends ReportPortalTestNGListener {
     saveScreenShoot(result);
 
     if (null != result.getThrowable()) {
-      LOGGER.info("Test execution error", result.getThrowable());
+      log.info("Test execution error", result.getThrowable());
     }
     super.onTestFailure(result);
   }
@@ -44,10 +43,10 @@ public class TestListener extends ReportPortalTestNGListener {
       File destScreenshotFile = new File("test-output/screenshots/" + System.currentTimeMillis() + ".png");
       FileUtils.moveFile(screenShot, destScreenshotFile);
 
-      LOGGER.info("Screen shoot of error: " + destScreenshotFile.getPath());
+      log.info("Screen shoot of error: " + destScreenshotFile.getPath());
 
       ReportPortalMessage message = new ReportPortalMessage(destScreenshotFile, "Screenshot: ");
-      LOGGER.info(message);
+      log.info(message);
 
 
     } catch (IOException e) {
