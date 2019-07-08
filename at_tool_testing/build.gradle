@@ -1,5 +1,8 @@
+plugins {
+    id 'com.github.johnrengelman.shadow' version '4.0.4'
+}
+
 group 'com.epam.at_tool_testing'
-version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
 
@@ -25,4 +28,11 @@ dependencies {
     compile "org.apache.poi:poi-ooxml:3.17"
     compile group: 'com.epam.reportportal', name: 'agent-java-testng', version: '4.0.1'
     compile group: 'com.epam.reportportal', name: 'logger-java-log4j', version: '4.0.1'
+}
+
+shadowJar {
+    baseName = 'gugol'
+    classifier = ''
+    version = '1.0'
+    destinationDir = file('/exec/')
 }
