@@ -1,0 +1,46 @@
+node {
+
+    def gugul = new Gugol(this)
+
+    stage('CleanUp') {
+        fileOperations([folderDeleteOperation('')])
+    }
+
+    stage('Git') {
+      git branch: 'at_tool', credentialsId: 'ded4ba1f-ac90-483e-aa06-8ce73b1d12ca', url: 'https://github.com/Yachkurynski/ATM_JAVA'
+    }
+
+    stage('Gradle') {
+
+      dir(gugul.getRoot()) {
+          bat 'gradle shadowJar'
+
+          gugul.runJar()
+      }
+    }
+
+}
+
+class Gugol {
+
+      def mainClass = 'ToolTestRunner'
+      def root = 'at_tool_testing'
+      def excel = 'test-input'
+
+      def pipe
+
+      Gugol(def pipe) {
+        this.pipe = pipe
+      }
+
+      String getRoot() {
+        return root
+      }
+
+      String runJar() {
+        def script = "java -cp at_tool-1.0.jar ${mainClass} -excel ${excel}"
+
+        pipe.bat script
+      }
+    }
+
