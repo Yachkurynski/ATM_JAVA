@@ -7,50 +7,46 @@ node {
     }
 
     stage('Git') {
-      git branch: 'at_tool', credentialsId: 'ded4ba1f-ac90-483e-aa06-8ce73b1d12ca', url: 'https://github.com/Yachkurynski/ATM_JAVA'
+        git branch: 'at_tool', credentialsId: 'ded4ba1f-ac90-483e-aa06-8ce73b1d12ca', url: 'https://github.com/Yachkurynski/ATM_JAVA'
     }
 
     stage('Gradle') {
 
-      dir(tool.getRoot()) {
-          bat 'gradle shadowJar'
+        dir(tool.getRoot()) {
+            bat 'gradle shadowJar'
 
-          tool.runJar()
-      }
+            tool.runJar()
+        }
     }
 
 }
 
 class Tool {
 
-      def mainClass = 'com.epam.ipipeline.core.runner.ToolTestRunner'
-      def root = 'at_tool_testing'
-      def excel = 'test-input'
+    def pipe
+    def mainClass = 'com.epam.ipipeline.core.runner.ToolTestRunner'
 
-      def pipe
+    def root = 'at_tool_testing'
 
-      Tool(def pipe) {
+    def params = [
+            "excel": "test-input"
+    ]
+
+    Tool(def pipe) {
         this.pipe = pipe
-      }
-
-      String getRoot() {
-        return root
-      }
-
-      String runJar() {
-        String script = "java -cp at_tool-1.0.jar ${mainClass} ${getParams()}"
-
-        if(pipe.params.api) {
-          script = script + "-api"
-        }
-
-        pipe.bat script
-      }
-
-      String getParams() {
-        return params = [
-          "excel": "${excel}"
-        ]
-      }
     }
+
+    String getRoot() {
+        return root
+    }
+
+    String runJar() {
+        String paramString = params.collect { k, v -> "-$k \"$v\"" }.join(" ")
+
+        if (pipe.params.api) {
+            paramString = paramString + " -api"
+        }
+        pipe.bat "java -cp at_tool-1.0.jar ${mainClass} ${paramString}"
+    }
+}
 
