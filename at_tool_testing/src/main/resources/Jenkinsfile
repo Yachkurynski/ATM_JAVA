@@ -3,11 +3,11 @@ node {
     def tool = new Tool(this)
 
     stage('CleanUp') {
-        fileOperations([folderDeleteOperation('')])
+//        fileOperations([folderDeleteOperation('')])
     }
 
     stage('Git') {
-      git branch: 'at_tool', credentialsId: 'ded4ba1f-ac90-483e-aa06-8ce73b1d12ca', url: 'https://github.com/Yachkurynski/ATM_JAVA'
+//      git branch: 'at_tool', credentialsId: 'ded4ba1f-ac90-483e-aa06-8ce73b1d12ca', url: 'https://github.com/Yachkurynski/ATM_JAVA'
     }
 
     stage('Gradle') {
@@ -48,7 +48,7 @@ class Tool {
       }
 
       String getParams() {
-        return def params = [
+        return params = [
           "excel": "${excel}"
         ]
       }
