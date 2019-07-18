@@ -1,6 +1,6 @@
 node {
 
-    def gugul = new Gugol(this)
+    def tool = new Tool(this)
 
     stage('CleanUp') {
         fileOperations([folderDeleteOperation('')])
@@ -12,24 +12,24 @@ node {
 
     stage('Gradle') {
 
-      dir(gugul.getRoot()) {
+      dir(tool.getRoot()) {
           bat 'gradle shadowJar'
 
-          gugul.runJar()
+          tool.runJar()
       }
     }
 
 }
 
-class Gugol {
+class Tool {
 
-      def mainClass = 'ToolTestRunner'
+      def mainClass = 'com.epam.ipipeline.core.runner.ToolTestRunner'
       def root = 'at_tool_testing'
       def excel = 'test-input'
 
       def pipe
 
-      Gugol(def pipe) {
+      Tool(def pipe) {
         this.pipe = pipe
       }
 
@@ -38,9 +38,19 @@ class Gugol {
       }
 
       String runJar() {
-        def script = "java -cp at_tool-1.0.jar ${mainClass} -excel ${excel}"
+        String script = "java -cp at_tool-1.0.jar ${mainClass} ${getParams()}"
+
+        if(pipe.params.api) {
+          script = script + "-api"
+        }
 
         pipe.bat script
+      }
+
+      String getParams() {
+        return def params = [
+          "excel": "${excel}"
+        ]
       }
     }
 

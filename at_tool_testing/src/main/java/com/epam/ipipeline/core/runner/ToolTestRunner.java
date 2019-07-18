@@ -22,8 +22,6 @@ public class ToolTestRunner {
     TestNGBuilder builder = new TestNGBuilder();
 
     builder.withListener(new ATToolListener());
-//    Injector injector = Guice.createInjector(new ATToolModule(config));
-//    builder.withParentModule(ATToolModule.class);
 
     Map<String, SingleTest> testFlow = new LinkedHashMap<>();
     File source = new File(config.getExcel());

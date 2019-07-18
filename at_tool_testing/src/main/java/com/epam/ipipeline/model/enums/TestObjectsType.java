@@ -7,11 +7,11 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum TestObjectsType {
-  Screen_1(1, "1-Screen"),
-  Textbox_1(2, "1-Textbox"),
-  Checkbox_1(3, "1-Checkbox"),
-  Button_1(4, "1-Button"),
-  Template(0);
+  SCREEN_1(1, "1-Screen"),
+  TEXTBOX_1(2, "1-Textbox"),
+  CHECKBOX_1(3, "1-Checkbox"),
+  BUTTON_1(4, "1-Button"),
+  TEMPLATE(0);
 
   private int id;
   private String name;

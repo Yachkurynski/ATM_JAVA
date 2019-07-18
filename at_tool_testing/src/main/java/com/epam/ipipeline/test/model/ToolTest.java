@@ -6,7 +6,6 @@ import com.epam.ipipeline.core.runner.Config;
 import com.epam.ipipeline.model.steps.Steps;
 import com.epam.ipipeline.model.steps.UISteps;
 import com.epam.ipipeline.model.ui.services.WebDriverService;
-import com.epam.ipipeline.model.ui.pages.PageFactory;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.inject.Inject;

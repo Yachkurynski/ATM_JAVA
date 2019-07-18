@@ -2,6 +2,7 @@ package com.epam.ipipeline.core.parsers;
 
 import com.epam.ipipeline.core.beans.SingleTest;
 import com.epam.ipipeline.core.enums.ColumnNames;
+import com.epam.ipipeline.core.exceptions.ATToolRuntimeException;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
@@ -31,7 +32,7 @@ public class ExcelTestParser {
     try(Workbook workbook = WorkbookFactory.create(source)) {
       sheet = workbook.getSheet("Sheet1");
     } catch (IOException | InvalidFormatException e) {
-      throw new RuntimeException(e);
+      throw new ATToolRuntimeException(e);
     }
     headers = new HashMap<>();
 
@@ -65,7 +66,7 @@ public class ExcelTestParser {
     try {
       return ClassLoader.getSystemClassLoader().loadClass(TESTS_PATH + className);
     } catch (ClassNotFoundException e) {
-      throw new RuntimeException(e);
+      throw new ATToolRuntimeException(e);
     }
   }
 

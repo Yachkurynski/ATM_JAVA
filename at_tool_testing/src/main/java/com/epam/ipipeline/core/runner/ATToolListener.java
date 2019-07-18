@@ -1,5 +1,6 @@
 package com.epam.ipipeline.core.runner;
 
+import com.epam.ipipeline.core.exceptions.ATToolRuntimeException;
 import com.epam.ipipeline.model.steps.UISteps;
 import com.epam.ipipeline.test.model.ToolTest;
 import com.epam.reportportal.message.ReportPortalMessage;
@@ -8,7 +9,6 @@ import java.io.File;
 import java.io.IOException;
 import lombok.extern.log4j.Log4j;
 import org.apache.commons.io.FileUtils;
-import org.apache.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -53,7 +53,7 @@ public class ATToolListener extends ReportPortalTestNGListener {
       log.info(message);
 
     } catch (IOException e) {
-      throw new RuntimeException(e);
+      throw new ATToolRuntimeException(e);
     } finally {
       FileUtils.deleteQuietly(screenShot);
     }
