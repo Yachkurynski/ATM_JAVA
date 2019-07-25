@@ -29,7 +29,7 @@ class Tool {
     def root = 'at_tool_testing'
 
     def params = [
-            "url": "http://10.6.220.15:8090/tool-0.1/"
+            "url": "http://10.6.220.15:8090/tool-0.1/",
             "excel": "test-input"
     ]
 
