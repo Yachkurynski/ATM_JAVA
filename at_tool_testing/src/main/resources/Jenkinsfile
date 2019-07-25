@@ -24,11 +24,12 @@ node {
 class Tool {
 
     def pipe
-    def mainClass = 'com.epam.ipipeline.core.runner.ToolTestRunner'
+    def mainClass = 'com.tool.automation.core.runner.ToolTestRunner'
 
     def root = 'at_tool_testing'
 
     def params = [
+            "url": "http://10.6.220.15:8090/tool-0.1/"
             "excel": "test-input"
     ]
 
