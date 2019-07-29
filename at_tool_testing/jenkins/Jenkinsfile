@@ -26,11 +26,6 @@ class Tool {
     def mainClass = 'com.tool.automation.core.runner.ToolTestRunner'
     def root = 'tool-tests'
 
-    def params = [
-            "url": "${pipe.params.application-url}",
-            "excel": "test-input/${pipe.params.suite}/${pipe.params.case}.xlsx"
-    ]
-
     Tool(def pipe) {
         this.pipe = pipe
     }
@@ -40,13 +35,21 @@ class Tool {
     }
 
     String runJar() {
-        String paramString = params.collect { k, v -> "-$k \"$v\"" }.join(" ")
+        String paramString = params().collect { k, v -> "-$k \"$v\"" }.join(" ")
 
         if (getParams().api) {
             paramString = paramString + " -api"
         }
         pipe.bat "java -cp at_tool-1.0.jar ${mainClass} ${paramString}"
     }
+
+    Map params() {
+
+        def params = [
+            "url": "${pipe.params.application-url}",
+            "excel": "test-input/${pipe.params.suite}/${pipe.params.case}.xlsx"
+         ]
+     }
 }
 
 
