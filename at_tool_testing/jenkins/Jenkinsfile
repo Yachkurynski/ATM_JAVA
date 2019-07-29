@@ -7,14 +7,13 @@ node {
     }
 
     stage('Git') {
-        git branch: 'at_tool', credentialsId: 'ded4ba1f-ac90-483e-aa06-8ce73b1d12ca', url: 'https://github.com/Yachkurynski/ATM_JAVA'
+        git branch: 'tool', credentialsId: 'ded4ba1f-ac90-483e-aa06-8ce73b1d12ca', url: '${this.params.framework-url}'
     }
 
     stage('Gradle') {
 
         dir(tool.getRoot()) {
-            bat 'gradle shadowJar'
-
+            tool.createJar()
             tool.runJar()
         }
     }
@@ -25,29 +24,34 @@ class Tool {
 
     def pipe
     def mainClass = 'com.tool.automation.core.runner.ToolTestRunner'
-
-    def root = 'at_tool_testing'
+    def root = 'tool-tests'
 
     def params = [
-            "url": "http://10.6.220.15:8090/tool-0.1/",
-            "excel": "test-input"
+            "url": "${getParams().application-url}",
+            "excel": "test-input/${getParams().suite}/${getParams().case}.xlsx"
     ]
 
     Tool(def pipe) {
         this.pipe = pipe
     }
 
-    String getRoot() {
-        return root
+    void createJar() {
+        pipe.bat 'gradle shadowJar'
     }
 
     String runJar() {
         String paramString = params.collect { k, v -> "-$k \"$v\"" }.join(" ")
 
-        if (pipe.params.api) {
+        if (getParams().api) {
             paramString = paramString + " -api"
         }
         pipe.bat "java -cp at_tool-1.0.jar ${mainClass} ${paramString}"
     }
+
+    private Map getParams() {
+        return pipe.params
+    }
 }
+
+
 
