@@ -7,7 +7,7 @@ node {
     }
 
     stage('Git') {
-        git branch: 'tool', credentialsId: 'ded4ba1f-ac90-483e-aa06-8ce73b1d12ca', url: "${this.params.framework-url}"
+        git branch: 'at_tool', credentialsId: 'ded4ba1f-ac90-483e-aa06-8ce73b1d12ca', url: "${this.params.framework-url}"
     }
 
     stage('Gradle') {
