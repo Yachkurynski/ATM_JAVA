@@ -27,8 +27,8 @@ class Tool {
     def root = 'tool-tests'
 
     def params = [
-            "url": "${getParams().application-url}",
-            "excel": "test-input/${getParams().suite}/${getParams().case}.xlsx"
+            "url": "${pipe.params.application-url}",
+            "excel": "test-input/${pipe.params.suite}/${pipe.params.case}.xlsx"
     ]
 
     Tool(def pipe) {
@@ -46,10 +46,6 @@ class Tool {
             paramString = paramString + " -api"
         }
         pipe.bat "java -cp at_tool-1.0.jar ${mainClass} ${paramString}"
-    }
-
-    private Map getParams() {
-        return pipe.params
     }
 }
 
